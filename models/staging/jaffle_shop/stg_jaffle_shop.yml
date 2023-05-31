@@ -12,14 +12,18 @@ models:
     columns:
       - name: order_id
         tests:
+          # the order_id column in the orders model should be unique
           - unique
+          # the order_id column in the orders model should not contain null values
           - not_null
       - name: status
         tests:
+          # the status column in the orders should be one of 'placed', 'shipped', 'completed', or 'returned'
           - accepted_values:
-              values:
-                - completed
-                - shipped
-                - returned
-                - return_pending
-                - placed
+              values: ['placed', 'shipped', 'completed', 'returned']
+      - name: customer_id
+        tests:
+          # each customer_id in the orders model exists as an id in the customers table (also known as referential integrity)
+          - relationships:
+              to: ref('customers')
+              field: id
