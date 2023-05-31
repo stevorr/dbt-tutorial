@@ -25,5 +25,5 @@ models:
         tests:
           # each customer_id in the orders model exists as an id in the customers table (also known as referential integrity)
           - relationships:
-              to: ref('customers')
-              field: id
+              to: ref('stg_customers')
+              field: customer_id
